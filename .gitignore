@@ -1,0 +1,10 @@
+# 비밀 정보 — 절대 깃허브에 올리지 않기
+.env
+
+# Python이 자동으로 만드는 것들
+.venv/
+__pycache__/
+
+# React가 자동으로 만드는 것들
+node_modules/
+dist/

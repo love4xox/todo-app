@@ -1,0 +1,338 @@
+/* 실제 꾸미기. 색·간격은 theme.css의 변수만 쓴다. */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  /* 위는 민트, 아래로 갈수록 크림색 */
+  background: linear-gradient(to bottom, var(--color-bg-top), var(--color-bg-bottom)) fixed;
+}
+
+/* ---------- 페이지 ---------- */
+.page {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4);
+}
+
+.page-header {
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-accent);
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* 제목 앞 체크 상자 (이모지라 색은 기기마다 정해진 그림을 따른다) */
+.title::before {
+  content: "☑️";
+  margin-right: var(--space-2);
+}
+
+.subtitle {
+  margin: var(--space-2) 0 0;
+  color: var(--color-ink-soft);
+  font-size: 15px;
+}
+
+/* ---------- 입력 카드 ---------- */
+.task-form {
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.task-form__label {
+  display: block;
+  margin-bottom: var(--space-3);
+  font-family: var(--font-accent);
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.task-form__row {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.task-form__input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  font: inherit;
+  font-size: 16px;
+  color: var(--color-ink);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  outline: none;
+}
+
+.task-form__input::placeholder {
+  color: var(--color-ink-soft);
+}
+
+.task-form__input:focus {
+  border-color: var(--color-point);
+}
+
+.task-form__button {
+  padding: var(--space-3) var(--space-6);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--color-point);
+  border: none;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-button);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.task-form__button:hover {
+  background: var(--color-point-dark);
+}
+
+.task-form__button:active {
+  transform: translateY(1px);
+}
+
+.task-form__button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.task-form__hint {
+  margin: var(--space-2) 0 0 var(--space-4);
+  color: var(--color-error-ink);
+  font-size: 14px;
+}
+
+/* ---------- 쪽지 (결과) ---------- */
+.memo {
+  position: relative;
+  margin-top: var(--space-8);
+  padding: var(--space-8) var(--space-6) var(--space-6);
+  background-color: var(--color-memo);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-memo);
+  transform: rotate(-1deg);
+  animation: memo-in 0.35s ease-out;
+}
+
+/* 쪽지 위에 붙인 테이프 */
+.memo::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  width: 96px;
+  height: 20px;
+  background: var(--color-tape);
+  border-radius: 2px;
+  opacity: 0.9;
+  transform: translateX(-50%) rotate(1.5deg);
+}
+
+.memo__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+/* 몇 개 했는지: 0 / 4 (해시태그 칩 모양) */
+.memo__progress {
+  flex-shrink: 0;
+  padding: var(--space-1) var(--space-3);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-point-dark);
+  background: var(--color-point-soft);
+  border-radius: var(--radius-full);
+}
+
+.memo__title {
+  margin: 0;
+  font-family: var(--font-accent);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.memo__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.memo__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 48px;
+  /* 할 일마다 아래에 연한 공책 줄 */
+  border-bottom: 1px solid var(--color-memo-line);
+}
+
+.memo__badge {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  font-weight: 700;
+  font-size: 13px;
+  color: #fff;
+  background: var(--color-point);
+  border-radius: var(--radius-full);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.memo__text {
+  font-family: var(--font-accent);
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+/* ---------- 체크 ---------- */
+label.memo__item {
+  cursor: pointer;
+}
+
+/* 진짜 체크박스는 숨기고(키보드·화면낭독기용으로는 남겨 둠) 번호 배지를 체크 모양으로 쓴다 */
+.memo__checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+label.memo__item:hover .memo__badge {
+  transform: scale(1.1);
+}
+
+/* 키보드(Tab)로 왔을 때 어디 있는지 보이게 */
+.memo__checkbox:focus-visible + .memo__badge {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+.memo__item.is-done .memo__badge {
+  background: var(--color-done);
+}
+
+.memo__item.is-done .memo__text {
+  color: var(--color-ink-soft);
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: var(--color-point);
+}
+
+/* ---------- 시트 저장 결과 ---------- */
+.memo__saved {
+  margin: var(--space-4) 0 0;
+  font-size: 13px;
+  text-align: right;
+}
+
+.memo__saved.is-ok {
+  color: var(--color-ink-soft);
+}
+
+.memo__saved.is-ok::before {
+  content: "✓ ";
+}
+
+.memo__saved.is-fail {
+  color: var(--color-error-ink);
+}
+
+.memo__saved.is-fail::before {
+  content: "! ";
+  font-weight: 700;
+}
+
+/* 기다리는 동안: 흐린 막대가 깜빡인다 */
+.memo--loading .memo__title {
+  margin-bottom: var(--space-3);
+  color: var(--color-ink-soft);
+}
+
+.memo--loading .memo__badge {
+  background: var(--color-memo-line);
+}
+
+.memo__skeleton {
+  flex: 1;
+  height: 12px;
+  background: var(--color-memo-line);
+  border-radius: var(--radius-full);
+  animation: blink 1s ease-in-out infinite alternate;
+}
+
+/* ---------- 에러 ---------- */
+.error-note {
+  margin-top: var(--space-6);
+  padding: var(--space-4) var(--space-6);
+  color: var(--color-error-ink);
+  background: var(--color-error-bg);
+  border: 2px solid var(--color-point-soft);
+  border-radius: var(--radius-md);
+}
+
+.error-note p {
+  margin: var(--space-1) 0 0;
+}
+
+/* ---------- 움직임 ---------- */
+@keyframes memo-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) rotate(-1deg);
+  }
+}
+
+@keyframes blink {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- 휴대폰 너비 ---------- */
+@media (max-width: 480px) {
+  .title {
+    font-size: 28px;
+  }
+
+  .task-form {
+    padding: var(--space-4);
+  }
+
+  /* 좁은 화면에서는 입력창과 버튼을 위아래로 */
+  .task-form__row {
+    flex-direction: column;
+  }
+
+  .memo {
+    padding: var(--space-6) var(--space-4) var(--space-4);
+  }
+}

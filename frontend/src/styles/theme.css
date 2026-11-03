@@ -1,0 +1,45 @@
+/*
+  디자인의 '한곳'.
+  색·글꼴·간격을 여기서만 정하고, app.css는 이 변수들만 가져다 쓴다.
+  색을 바꾸고 싶으면 이 파일의 값만 고치면 화면 전체가 바뀐다.
+*/
+:root {
+  /* 색: 민트빛 꽃밭 바탕 + 분홍 포인트 + 아이보리 쪽지 */
+  --color-bg-top: #e2efe5;      /* 바탕 위쪽 (민트) */
+  --color-bg-bottom: #fcf7ee;   /* 바탕 아래쪽 (크림) */
+  --color-surface: #fffefa;     /* 입력 카드 */
+  --color-memo: #fffdf4;        /* 쪽지 */
+  --color-memo-line: #efe8d6;   /* 쪽지 줄 */
+  --color-tape: #e6dcc4;        /* 쪽지 위 테이프 */
+  --color-ink: #23392d;         /* 기본 글자 (짙은 초록) */
+  --color-ink-soft: #7d9886;    /* 흐린 글자 (세이지) */
+  --color-point: #ef8497;       /* 포인트(버튼·번호 배지) */
+  --color-point-dark: #d96a80;  /* 포인트 눌렀을 때 */
+  --color-point-soft: #fde4ea;  /* 연한 분홍 (해시태그 칩 느낌) */
+  --color-done: #a9bfae;        /* 체크한 배지 */
+  --color-border: #e3dcc6;      /* 베이지 테두리 */
+  --color-error-bg: #fde4ea;
+  --color-error-ink: #b8445c;
+
+  /* 글꼴 */
+  --font-body: "Gowun Dodum", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  --font-accent: "Gowun Batang", serif; /* 제목과 쪽지 글씨 */
+
+  /* 간격 (4의 배수로 통일) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* 모서리·그림자 */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-full: 999px;
+  --shadow-card: 0 4px 14px rgba(60, 90, 70, 0.08);
+  --shadow-memo: 0 8px 20px rgba(60, 90, 70, 0.12);
+  --shadow-button: 0 6px 14px rgba(239, 132, 151, 0.35);
+
+  --page-width: 560px;
+}
