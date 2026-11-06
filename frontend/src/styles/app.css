@@ -1,4 +1,5 @@
-/* 실제 꾸미기. 색·간격은 theme.css의 변수만 쓴다. */
+/* 실제 꾸미기. 색·간격은 theme.css의 변수만 쓴다.
+   기능 파일(App.jsx, components)의 클래스 이름은 그대로 두고 모양만 바꿨다. */
 
 * {
   box-sizing: border-box;
@@ -9,35 +10,47 @@ body {
   min-height: 100vh;
   font-family: var(--font-body);
   color: var(--color-ink);
-  /* 위는 민트, 아래로 갈수록 크림색 */
-  background: linear-gradient(to bottom, var(--color-bg-top), var(--color-bg-bottom)) fixed;
+  /* 맨 위 베이지 커버 띠 + 아래는 오프화이트 (노션 페이지 커버 느낌) */
+  background:
+    linear-gradient(to bottom, var(--color-cover) 0, var(--color-cover) var(--cover-height), var(--color-cover-edge) var(--cover-height), var(--color-bg) calc(var(--cover-height) + 1px))
+    no-repeat,
+    var(--color-bg);
 }
 
 /* ---------- 페이지 ---------- */
 .page {
   max-width: var(--page-width);
   margin: 0 auto;
-  padding: var(--space-8) var(--space-4);
+  /* 커버 아래로 내려오되, 아이콘은 커버 경계에 걸치게 */
+  padding: calc(var(--cover-height) - 44px) var(--space-4) var(--space-8);
 }
 
 .page-header {
   margin-bottom: var(--space-6);
-  padding-bottom: var(--space-6);
-  border-bottom: 1px solid var(--color-border);
+}
+
+/* 커버에 걸치는 아이콘 타일 (이모지라 모양은 기기마다 조금 다르다) */
+.page-header::before {
+  content: "🌿";
+  display: grid;
+  place-items: center;
+  width: 80px;
+  height: 80px;
+  margin-bottom: var(--space-4);
+  font-size: 40px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 18px;
+  box-shadow: var(--shadow-icon);
 }
 
 .title {
   margin: 0;
   font-family: var(--font-accent);
-  font-size: 34px;
-  font-weight: 700;
+  font-size: 38px;
+  font-weight: 800;
   line-height: 1.2;
-}
-
-/* 제목 앞 체크 상자 (이모지라 색은 기기마다 정해진 그림을 따른다) */
-.title::before {
-  content: "☑️";
-  margin-right: var(--space-2);
+  letter-spacing: -0.5px;
 }
 
 .subtitle {
@@ -50,17 +63,25 @@ body {
 .task-form {
   padding: var(--space-6);
   background: var(--color-surface);
-  border: 2px solid var(--color-border);
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
 }
 
 .task-form__label {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   margin-bottom: var(--space-3);
-  font-family: var(--font-accent);
   font-weight: 700;
-  font-size: 17px;
+  font-size: 15px;
+}
+
+/* 제목 앞 반짝이 */
+.task-form__label::before {
+  content: "✦";
+  color: var(--color-sparkle);
+  font-size: 16px;
 }
 
 .task-form__row {
@@ -73,12 +94,13 @@ body {
   min-width: 0;
   padding: var(--space-3) var(--space-4);
   font: inherit;
-  font-size: 16px;
+  font-size: 15px;
   color: var(--color-ink);
-  background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-full);
+  background: var(--color-field);
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
   outline: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
 
 .task-form__input::placeholder {
@@ -86,25 +108,36 @@ body {
 }
 
 .task-form__input:focus {
-  border-color: var(--color-point);
+  background: var(--color-surface);
+  border-color: var(--color-point-dark);
 }
 
 .task-form__button {
   padding: var(--space-3) var(--space-6);
   font: inherit;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: #fff;
   background: var(--color-point);
   border: none;
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-button);
+  border-radius: 10px;
   cursor: pointer;
   white-space: nowrap;
+  transition: background 0.15s ease;
+}
+
+/* 버튼 글자 뒤 화살표 */
+.task-form__button::after {
+  content: " →";
 }
 
 .task-form__button:hover {
   background: var(--color-point-dark);
+}
+
+.task-form__button:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
 }
 
 .task-form__button:active {
@@ -116,37 +149,96 @@ body {
   cursor: wait;
 }
 
-.task-form__hint {
-  margin: var(--space-2) 0 0 var(--space-4);
-  color: var(--color-error-ink);
-  font-size: 14px;
-}
-
-/* ---------- 쪽지 (결과) ---------- */
-.memo {
-  position: relative;
-  margin-top: var(--space-8);
-  padding: var(--space-8) var(--space-6) var(--space-6);
-  background-color: var(--color-memo);
-  border: 2px solid var(--color-border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-memo);
-  transform: rotate(-1deg);
-  animation: memo-in 0.35s ease-out;
-}
-
-/* 쪽지 위에 붙인 테이프 */
-.memo::before {
+.task-form__button:disabled::after {
   content: "";
-  position: absolute;
-  top: -11px;
-  left: 50%;
-  width: 96px;
-  height: 20px;
-  background: var(--color-tape);
-  border-radius: 2px;
-  opacity: 0.9;
-  transform: translateX(-50%) rotate(1.5deg);
+}
+
+/* 입력 아래 안내 한 줄 */
+.task-form__note {
+  margin: var(--space-3) 0 0 var(--space-1);
+  color: var(--color-ink-soft);
+  font-size: 12.5px;
+}
+
+.task-form__note::before {
+  content: "💡 ";
+}
+
+.task-form__hint {
+  margin: var(--space-2) 0 0 var(--space-1);
+  color: var(--color-error-ink);
+  font-size: 13px;
+}
+
+/* ---------- 결과 묶음: 달성률 카드 + 체크리스트 ---------- */
+.result {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  animation: memo-in 0.3s ease-out;
+}
+
+.result .memo {
+  margin-top: 0;
+  animation: none;
+}
+
+/* 달성률 카드 */
+.progress-card {
+  display: grid;
+  grid-template-columns: auto 1fr minmax(120px, 180px);
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-progress-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.progress-card__icon {
+  font-size: 22px;
+}
+
+.progress-card__text {
+  min-width: 0;
+}
+
+.progress-card__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.progress-card__sub {
+  margin: 2px 0 0;
+  color: var(--color-ink-soft);
+  font-size: 13px;
+}
+
+.progress-card__bar {
+  height: 8px;
+  background: var(--color-line);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-card__bar span {
+  display: block;
+  height: 100%;
+  background: var(--color-done);
+  border-radius: var(--radius-full);
+  transition: width 0.25s ease;
+}
+
+/* ---------- 결과 (노션 체크리스트 모양) ---------- */
+.memo {
+  margin-top: var(--space-8);
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  animation: memo-in 0.3s ease-out;
 }
 
 .memo__header {
@@ -154,25 +246,83 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  margin-bottom: var(--space-3);
-}
-
-/* 몇 개 했는지: 0 / 4 (해시태그 칩 모양) */
-.memo__progress {
-  flex-shrink: 0;
-  padding: var(--space-1) var(--space-3);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--color-point-dark);
-  background: var(--color-point-soft);
-  border-radius: var(--radius-full);
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-line);
 }
 
 .memo__title {
   margin: 0;
   font-family: var(--font-accent);
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
+}
+
+/* 제목 앞 목록 아이콘 */
+.memo__title::before {
+  content: "☰";
+  margin-right: var(--space-2);
+  color: var(--color-ink-soft);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.memo__count {
+  color: var(--color-ink-soft);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* 전체·진행중·완료 탭 */
+.memo__tabs {
+  display: flex;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.memo__tab {
+  padding: var(--space-1) var(--space-3);
+  font: inherit;
+  font-size: 13px;
+  color: var(--color-ink-soft);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.memo__tab:hover {
+  background: var(--color-field);
+}
+
+.memo__tab.is-active {
+  color: var(--color-ink);
+  font-weight: 700;
+  background: var(--color-tab-active);
+}
+
+.memo__tab:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 1px;
+}
+
+.memo__empty {
+  margin: var(--space-4) 0 var(--space-2);
+  color: var(--color-ink-soft);
+  font-size: 14px;
+  text-align: center;
+}
+
+/* 몇 개 했는지: 1 / 4 */
+.memo__progress {
+  flex-shrink: 0;
+  padding: var(--space-1) var(--space-3);
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-done);
+  background: var(--color-done-soft);
+  border-radius: var(--radius-full);
 }
 
 .memo__list {
@@ -186,28 +336,30 @@ body {
   align-items: center;
   gap: var(--space-3);
   min-height: 48px;
-  /* 할 일마다 아래에 연한 공책 줄 */
-  border-bottom: 1px solid var(--color-memo-line);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: background 0.12s ease;
 }
 
+/* 번호 배지 → 빈 체크 상자 모양 (번호는 숨기고, 체크하면 ✓가 보인다) */
 .memo__badge {
   flex-shrink: 0;
   display: grid;
   place-items: center;
-  width: 26px;
-  height: 26px;
+  width: 20px;
+  height: 20px;
   font-weight: 700;
-  font-size: 13px;
-  color: #fff;
-  background: var(--color-point);
-  border-radius: var(--radius-full);
-  transition: transform 0.15s ease, background 0.15s ease;
+  font-size: 12px;
+  color: transparent;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-box);
+  border-radius: 5px;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .memo__text {
-  font-family: var(--font-accent);
-  font-size: 17px;
-  line-height: 1.4;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 /* ---------- 체크 ---------- */
@@ -215,16 +367,16 @@ label.memo__item {
   cursor: pointer;
 }
 
-/* 진짜 체크박스는 숨기고(키보드·화면낭독기용으로는 남겨 둠) 번호 배지를 체크 모양으로 쓴다 */
+label.memo__item:hover {
+  background: var(--color-field);
+}
+
+/* 진짜 체크박스는 숨기고(키보드·화면낭독기용으로는 남겨 둠) 상자 모양 배지를 대신 보여 준다 */
 .memo__checkbox {
   position: absolute;
   opacity: 0;
   width: 1px;
   height: 1px;
-}
-
-label.memo__item:hover .memo__badge {
-  transform: scale(1.1);
 }
 
 /* 키보드(Tab)로 왔을 때 어디 있는지 보이게 */
@@ -234,21 +386,22 @@ label.memo__item:hover .memo__badge {
 }
 
 .memo__item.is-done .memo__badge {
+  color: #fff;
   background: var(--color-done);
+  border-color: var(--color-done);
 }
 
 .memo__item.is-done .memo__text {
   color: var(--color-ink-soft);
   text-decoration: line-through;
-  text-decoration-thickness: 1.5px;
-  text-decoration-color: var(--color-point);
 }
 
 /* ---------- 시트 저장 결과 ---------- */
 .memo__saved {
   margin: var(--space-4) 0 0;
+  padding-top: var(--space-3);
   font-size: 13px;
-  text-align: right;
+  border-top: 1px solid var(--color-line);
 }
 
 .memo__saved.is-ok {
@@ -257,6 +410,8 @@ label.memo__item:hover .memo__badge {
 
 .memo__saved.is-ok::before {
   content: "✓ ";
+  color: var(--color-done);
+  font-weight: 700;
 }
 
 .memo__saved.is-fail {
@@ -275,13 +430,13 @@ label.memo__item:hover .memo__badge {
 }
 
 .memo--loading .memo__badge {
-  background: var(--color-memo-line);
+  border-color: var(--color-line);
 }
 
 .memo__skeleton {
   flex: 1;
   height: 12px;
-  background: var(--color-memo-line);
+  background: var(--color-line);
   border-radius: var(--radius-full);
   animation: blink 1s ease-in-out infinite alternate;
 }
@@ -292,7 +447,7 @@ label.memo__item:hover .memo__badge {
   padding: var(--space-4) var(--space-6);
   color: var(--color-error-ink);
   background: var(--color-error-bg);
-  border: 2px solid var(--color-point-soft);
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-md);
 }
 
@@ -304,7 +459,7 @@ label.memo__item:hover .memo__badge {
 @keyframes memo-in {
   from {
     opacity: 0;
-    transform: translateY(12px) rotate(-1deg);
+    transform: translateY(8px);
   }
 }
 
@@ -317,13 +472,21 @@ label.memo__item:hover .memo__badge {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .memo,
+  .memo__skeleton {
+    animation: none;
+  }
+}
+
 /* ---------- 휴대폰 너비 ---------- */
 @media (max-width: 480px) {
   .title {
-    font-size: 28px;
+    font-size: 30px;
   }
 
-  .task-form {
+  .task-form,
+  .memo {
     padding: var(--space-4);
   }
 
@@ -332,7 +495,17 @@ label.memo__item:hover .memo__badge {
     flex-direction: column;
   }
 
-  .memo {
-    padding: var(--space-6) var(--space-4) var(--space-4);
+  /* 좁은 화면에서는 막대를 아래 줄로 */
+  .progress-card {
+    grid-template-columns: auto 1fr;
+    padding: var(--space-4);
+  }
+
+  .progress-card__bar {
+    grid-column: 1 / -1;
+  }
+
+  .memo__header {
+    flex-wrap: wrap;
   }
 }

@@ -28,7 +28,7 @@ export default function TaskForm({ onSubmit, isLoading }) {
           id="task-input"
           className="task-form__input"
           type="text"
-          placeholder="예: 이사 준비"
+          placeholder="예: '이사 준비'처럼 막막한 일을 하나 적어 보세요"
           maxLength={100}
           value={text}
           onChange={(e) => {
@@ -41,7 +41,12 @@ export default function TaskForm({ onSubmit, isLoading }) {
           {isLoading ? "쪼개는 중..." : "쪼개기"}
         </button>
       </div>
-      {hint && <p className="task-form__hint">{hint}</p>}
+      {hint ? (
+        <p className="task-form__hint">{hint}</p>
+      ) : (
+        // 무엇이 일어나는지 미리 알려 주는 안내 (모양만 바뀌고 동작은 그대로)
+        <p className="task-form__note">AI가 바로 시작할 수 있는 작은 일로 나누고, 결과는 구글 시트에 저장돼요.</p>
+      )}
     </form>
   );
 }

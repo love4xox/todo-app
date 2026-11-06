@@ -2,28 +2,33 @@
   디자인의 '한곳'.
   색·글꼴·간격을 여기서만 정하고, app.css는 이 변수들만 가져다 쓴다.
   색을 바꾸고 싶으면 이 파일의 값만 고치면 화면 전체가 바뀐다.
+
+  지금 느낌: 노션 페이지처럼 차분한 웜톤 (베이지 커버 + 오프화이트 바탕 + 올리브 체크)
 */
 :root {
-  /* 색: 민트빛 꽃밭 바탕 + 분홍 포인트 + 아이보리 쪽지 */
-  --color-bg-top: #e2efe5;      /* 바탕 위쪽 (민트) */
-  --color-bg-bottom: #fcf7ee;   /* 바탕 아래쪽 (크림) */
-  --color-surface: #fffefa;     /* 입력 카드 */
-  --color-memo: #fffdf4;        /* 쪽지 */
-  --color-memo-line: #efe8d6;   /* 쪽지 줄 */
-  --color-tape: #e6dcc4;        /* 쪽지 위 테이프 */
-  --color-ink: #23392d;         /* 기본 글자 (짙은 초록) */
-  --color-ink-soft: #7d9886;    /* 흐린 글자 (세이지) */
-  --color-point: #ef8497;       /* 포인트(버튼·번호 배지) */
-  --color-point-dark: #d96a80;  /* 포인트 눌렀을 때 */
-  --color-point-soft: #fde4ea;  /* 연한 분홍 (해시태그 칩 느낌) */
-  --color-done: #a9bfae;        /* 체크한 배지 */
-  --color-border: #e3dcc6;      /* 베이지 테두리 */
-  --color-error-bg: #fde4ea;
-  --color-error-ink: #b8445c;
+  /* 색 */
+  --color-bg: #f8f6f2;          /* 바탕 (따뜻한 오프화이트) */
+  --color-cover: #efe5d8;       /* 맨 위 커버 띠 (베이지) */
+  --color-cover-edge: #e7dccd;  /* 커버 아래 경계 */
+  --color-surface: #fffdf9;     /* 카드 */
+  --color-field: #faf7f2;       /* 입력창 안쪽 */
+  --color-line: #ebe5dc;        /* 연한 줄·테두리 */
+  --color-ink: #2f2a26;         /* 기본 글자 (짙은 갈색빛 검정) */
+  --color-ink-soft: #8c837a;    /* 흐린 글자 */
+  --color-point: #b9ae9f;       /* 버튼 (차분한 토프) */
+  --color-point-dark: #9d9284;  /* 버튼 눌렀을 때 */
+  --color-sparkle: #d48a4f;     /* 입력 카드 제목 앞 반짝이 */
+  --color-done: #8ea27f;        /* 체크 완료 (올리브) */
+  --color-done-soft: #e6ecdf;   /* 진행 칩 배경 */
+  --color-box: #cfc6ba;         /* 빈 체크 상자 테두리 */
+  --color-progress-bg: #f4eee6; /* 달성률 카드 배경 */
+  --color-tab-active: #efe8de;  /* 고른 탭 배경 */
+  --color-error-bg: #fbecea;
+  --color-error-ink: #b2574b;
 
   /* 글꼴 */
-  --font-body: "Gowun Dodum", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
-  --font-accent: "Gowun Batang", serif; /* 제목과 쪽지 글씨 */
+  --font-body: "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  --font-accent: "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
 
   /* 간격 (4의 배수로 통일) */
   --space-1: 4px;
@@ -34,12 +39,12 @@
   --space-8: 32px;
 
   /* 모서리·그림자 */
-  --radius-sm: 10px;
-  --radius-md: 16px;
+  --radius-sm: 6px;
+  --radius-md: 14px;
   --radius-full: 999px;
-  --shadow-card: 0 4px 14px rgba(60, 90, 70, 0.08);
-  --shadow-memo: 0 8px 20px rgba(60, 90, 70, 0.12);
-  --shadow-button: 0 6px 14px rgba(239, 132, 151, 0.35);
+  --shadow-card: 0 1px 2px rgba(60, 45, 30, 0.04), 0 6px 18px rgba(60, 45, 30, 0.05);
+  --shadow-icon: 0 4px 14px rgba(60, 45, 30, 0.1);
 
-  --page-width: 560px;
+  --cover-height: 150px;
+  --page-width: 640px;
 }
